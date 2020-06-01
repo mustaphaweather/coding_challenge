@@ -5,7 +5,8 @@ import ssl
 import time
 import requests
 from io import BytesIO
-import tqdm
+from tqdm import tqdm
+from db_connect import add_article 
 
 
 ### MAIN URL
@@ -18,8 +19,6 @@ ctx.verify_mode = ssl.CERT_NONE
 
 ### FAKE BROWSER METADATA
 headers = {"User-Agent": "Mozilla/5.0"}
-
-
 
 ### [1] SCRAPE ALL ARTICLES CORES
 
@@ -34,31 +33,21 @@ try:
 	html = document.read()
 	soup = BeautifulSoup(html , 'html.parser')
 
-	### DEFINE LISTS TO CAPTURE DATA [LINK, CATEGORY , AUTHOR , ARTICLE , TITLE]
-	list_categories = list()
-	list_links = list()
-	list_titles = list()
-	list_authors = list()
-	list_articles = list()
-	wrong = list()
+	### DEFINE LIST OF DICTIONNARIES [LINK, CATEGORY , AUTHOR , ARTICLE , TITLE]
+	articles = list()
 
 
 
-	for link in soup.find_all('a', { 'class': 'gs-c-promo-heading' }):
+	for link in tqdm(soup.find_all('a', { 'class': 'gs-c-promo-heading' })):
 		### GET CATEGORY ARTICLE
 		category = link['href'].split("/")[1]
-		# print(category)
-		list_categories.append(category)
 
 		### GET LINK
 		if 'https' in link['href']:
 			link = link['href']
 		else:
 			link = "https://www.bbc.com"+link['href']
-		# print(link)
-		list_links.append(link)
 
-		print("====> <====")
 		try:
 			req = Request(url= link, headers=headers) 
 			document = urlopen(req)
@@ -69,8 +58,6 @@ try:
 
 			### GET TITLE
 			title = core_article.find('h1' , class_ = "story-body__h1").text
-			# print(title)
-			list_titles.append(title)
 
 			## GET AUTHOR
 			try:
@@ -79,30 +66,29 @@ try:
 					author = "unknown"
 				else:
 					author = author.split(" ")[1]
-				# print(author)
-				list_authors.append(author)
 			except:
 				author = core_article.find('span' , class_ = "byline__name")
 				if author == None:
 					author = "unknown"
 				else:
 					author = author.split(" ")[1]
-				# print(author)
-				list_authors.append(author)
 
 			## GET ARTICLE
 			article = core_article.find('div' , class_ = "story-body__inner").find_all('p')
 			article = [x.text for x in article]
 			article = ' '.join(article)
-			# print(article)
-			list_articles.append(article)
-
+			
+			new_article = {"category": category, "author": author, "link": link, "title": title, "article":article}
+			articles.append(new_article)
 		except KeyboardInterrupt:
 			print("Program interrupted by user ...")
 			exit()
 		except :
-			print("SOMETHING WENT WRONG ")
 			continue
+
+
+
+	
 			 
 
 
@@ -112,12 +98,12 @@ except KeyboardInterrupt:
 	exit()
 except:
 	print("SOMETHING WENT WRONG ")
-
-
-
 				
-print("SCRAPING LINKS DONE !!")				
+print("SCRAPING  DONE !!")				
 
 end = time.time()
 
 print ('Time taken: {} seconds'.format(end-start_process))
+
+# add_article(articles)
+
