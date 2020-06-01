@@ -36,7 +36,7 @@ def read_data_all():
         return []
         exit()
 
-### [!] TO BE ABLE TO SEARCH BY KEYWORD ON A COLLECTION I HAD TO CREATE A TEXTINDEX USING
+### [!] TO BE ABLE TO SEARCH BY KEYWORD ON A COLLECTION I HAD TO CREATE A TEXTINDEX ON MY COLLECTION USING
 # myDB.bbc_articles.create_index( [("article", TEXT), ("title", TEXT) ] )
 ## FUNCTION TO FETCH ARTICLES BY KEYWORD
 def fetch_data(keyword_):
