@@ -1,15 +1,19 @@
 from pymongo import MongoClient
 from pprint import pprint
 
-try:
-    client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
-    db=client.admin
-    # Issue the serverStatus command and print the results
-    serverStatusResult=db.command("serverStatus")
-    pprint(serverStatusResult)
-except:
-    print("connection error")
+def add_article(article):
+    try:
+        ## DB CONNECTION
+        client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
 
-mydb = client["challenge_code"]
-mycol = mydb["bbc_articles"]
-print(mycol)
+        ## INSERTION
+        mydb = client["challenge_code"]
+        mycol = mydb["bbc_articles"]
+        # mycol.insert_one(article)
+        mycol.insert_many(article)
+        print("NEW ARTICLES ADDED SUCCESSFULY")
+    except:
+        print("connection error")
+        exit()
+
+    
