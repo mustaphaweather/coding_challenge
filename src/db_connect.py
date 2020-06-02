@@ -1,12 +1,13 @@
 from pymongo import MongoClient
 from pprint import pprint
 from pymongo import TEXT
+import credentiels
 
 ## FUNCTION TO STORE NEW ARTICLES
 def add_article(article):
     try:
         ## DB CONNECTION
-        client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
+        client = MongoClient()
 
         ## INSERTION
         mydb = client["challenge_code"]
@@ -21,7 +22,7 @@ def add_article(article):
 def read_all():
     try:
         ## DB CONNECTION
-        client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
+        client = MongoClient(credentiels.URL_CONNECTION)
 
         ## READING
         mydb = client["challenge_code"]
