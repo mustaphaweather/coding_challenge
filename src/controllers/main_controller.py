@@ -4,8 +4,8 @@ import json
 from bson.json_util import loads, dumps
 from logbook import Logger , ERROR, WARNING, DEBUG, INFO
 sys.path.append("..")
-from db_connect import read_all , fetch_by_keyword
-from content_scraper import scraping
+from services.db_connect import read_all , fetch_by_keyword
+from services.content_scraper import scraping
 
 
 log = Logger('logbook' , INFO)
