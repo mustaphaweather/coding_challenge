@@ -11,7 +11,6 @@ def add_article(article):
         ## INSERTION
         mydb = client["challenge_code"]
         mycol = mydb["bbc_articles"]
-        # mycol.insert_one(article)
         mycol.insert_many(article)
         print("NEW ARTICLES ADDED SUCCESSFULY")
     except:
@@ -19,15 +18,14 @@ def add_article(article):
         exit()
 
 ## FUNCTION TO READ ALL ARTICLES
-def read_data_all():
+def read_all():
     try:
         ## DB CONNECTION
         client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
 
-        ## INSERTION
+        ## READING
         mydb = client["challenge_code"]
         mycol = mydb["bbc_articles"]
-        # mycol.insert_one(article)
         results = mycol.find({})
         print("READ ARTICLES SUCCESSFULY")
         return list(results)
@@ -39,12 +37,12 @@ def read_data_all():
 ### [!] TO BE ABLE TO SEARCH BY KEYWORD ON A COLLECTION I HAD TO CREATE A TEXTINDEX ON MY COLLECTION USING
 # myDB.bbc_articles.create_index( [("article", TEXT), ("title", TEXT) ] )
 ## FUNCTION TO FETCH ARTICLES BY KEYWORD
-def fetch_data(keyword_):
+def fetch_by_keyword(keyword_):
     try:
         ## DB CONNECTION
         client = MongoClient("mongodb+srv://mustapha:Cerona7h@cluster0-jtqqb.gcp.mongodb.net/test?retryWrites=true&w=majority")
 
-        ## INSERTION
+        ## FETCH
         mydb = client["challenge_code"]
         mycol = mydb["bbc_articles"]
         mydb.bbc_articles.create_index( [("article", TEXT), ("title", TEXT) ] )
