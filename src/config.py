@@ -13,6 +13,8 @@ log_dict = {
 	"ERROR":  logbook.ERROR
 }
 
+
+
 #Flask configuration file
 
 #Developpement Config
@@ -32,3 +34,4 @@ class Testconfig():
 	ENVIRONEMENT = "test"
 	TESTING = True
 	LOG_LEVEL = log_dict.get(env("LOG_LEVEL", "NOTSET"))
+
