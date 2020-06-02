@@ -69,7 +69,7 @@ paths:
                         maxLength: 20
       responses:
         '200':    # status code
-          description: 'featching is done succesufly is done succesufly ' 
+          description: 'featching is done succesufly  ' 
           content:
             application/json:
               schema: 
