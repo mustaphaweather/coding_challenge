@@ -11,6 +11,8 @@ The previous API ablilities are presented in the following endpoints:
 # Requirements
 * Python 3.6
 * Conda 4.8 (for virtual environement)
+* mongodb atlas account
+* mongodb database named as ['challenge_code'] and a collection in the database named ['bbc_articles']
 
 # Setup
 ### To run the project Please follow the instructions below :</br>
@@ -32,25 +34,29 @@ or
 activate codding_challenge
 ```
 
-#### 4 - associate the wsgi.py app luncher file with the enviroenemtn variable flask_env and set developement env
+#### 4 - associate the wsgi.py app luncher file with the environement variable flask_env and set developement env
 ```
 cd src
 set flask_app=wsgy.py
 set FLASK_ENV='developement'
 ```
 
-#### 5 - Run the application
+#### 5 - create a file named credentiels.py and the put your mongodb_url in it [you should think about hiding that credentiels file in gitignore file for security
 ```
-flask run
+URL_CONNECTION = your_mongodb_url
+```
+#### 6 - Run the application
+```
+flask run 
 ```
 
-#### 6 - Run scraper endpoint
+#### 7 - Run scraper endpoint
 ``` v1/scrape_data```
 
-#### 7 - Run read all data endpoint
+#### 8 - Run read all data endpoint
 ``` v1/read_data```
 
-#### 6 - Run read using fetch by keyword
+#### 9 - Run read using fetch by keyword
 This endpoint takes us requestbody {"keyword":"your_keyword"} </br>
 -``` v1/fetch_data```
 
